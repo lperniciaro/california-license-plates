@@ -2,12 +2,12 @@
 
 const queries = process.argv.slice(2)
 import chalk from 'chalk'
-import search from './lib/search.js'
+import { searchMultiple } from './lib/search.js'
 
 async function main () {
-  for (const query of queries) {
-    const { available } = await search(query)
-
+  const results = await searchMultiple(queries)
+  
+  for (const { query, available } of results) {
     if (available) {
       console.log(chalk.green(query), chalk.gray('is available!'))
     } else {
